@@ -119,6 +119,8 @@ void ReconstructionModule::spin() {
   // TODO(nathan) fix shutdown logic
   while (!should_shutdown_) {
     bool has_data = queue_->poll();
+    // LOG has_data
+    // LOG(INFO) << "has_data: " << has_data;
     if (!has_data) {
       continue;
     }

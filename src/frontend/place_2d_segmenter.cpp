@@ -257,10 +257,12 @@ void Place2dSegmenter::detect(const ReconstructionOutput&,
 
   for (const auto label : config.labels) {
     if (!label_indices.count(label)) {
+      // LOG(INFO) << "well, label_indices.cout(label) is false, size";
       continue;
     }
 
     if (label_indices.at(label)->size() < config.min_cluster_size) {
+      // LOG(INFO) << "smaller than cluster_size, size: " << label_indices.at(label)->size();
       continue;
     }
 
@@ -300,7 +302,9 @@ LabelIndices Place2dSegmenter::getLabelIndices(const Mesh::Labels& labels,
     const auto label = labels.at(idx);
     seen_labels.insert(label);
 
+    // LOG(INFO) << "config_labels" << printLabels(config.labels);
     if (!config.labels.count(label)) {
+      // LOG(INFO) << "skipping label " << static_cast<int>(label);
       continue;
     }
 
@@ -472,6 +476,7 @@ NodeSymbol Place2dSegmenter::addPlaceToGraph(DynamicSceneGraph& graph,
 
   attrs->color  = label_map->getColorFromLabel(label);
 
+  LOG(INFO) << "I HOPE THIS IS CALLED";
   graph.emplaceNode(DsgLayers::MESH_PLACES, next_node_id_, std::move(attrs));
 
   active_places_.at(label).insert(next_node_id_);

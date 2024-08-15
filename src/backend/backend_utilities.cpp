@@ -106,6 +106,8 @@ void updatePlace2dBoundary(Place2dNodeAttributes& attrs,
 void updatePlaces2d(SharedDsgInfo::Ptr dsg,
                     kimera_pgmo::MeshDelta& mesh_update,
                     size_t num_archived_vertices) {
+  // LOG(INFO) << "DEUBUG:Updating 2D places";
+  // LOG(INFO) << "DSG HAS MESH_PLACES LAYER: " << !dsg->graph->hasLayer(DsgLayers::MESH_PLACES);
   if (!dsg->graph->hasLayer(DsgLayers::MESH_PLACES)) {
     return;
   }

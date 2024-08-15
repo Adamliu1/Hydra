@@ -10,6 +10,20 @@ objects:
   max_cluster_size: 100000
   cluster_tolerance: 0.25
 min_object_vertices: 40
+surface_places:
+  type: place_2d
+  prefix: P
+  # Max side length for places without any other overlappig semantic classes
+  pure_final_place_size: 1
+  # Params related to place clustering
+  cluster_tolerance: .3
+  min_cluster_size: 50
+  # min_cluster_size: 10
+  max_cluster_size: 100000
+  min_final_place_points: 10
+  # Params related to place edge connections
+  place_max_neighbor_z_diff: .5
+  place_overlap_threshold: 0.0
 freespace_places:
   type: gvd
   gvd:
@@ -49,3 +63,16 @@ freespace_places:
   tsdf_interpolator:
     type: downsample
     ratio: 2
+# use_frontiers: false
+# frontier_places:
+#   type: "voxel_clustering"
+#   cluster_tolerance: 0.3
+#   min_cluster_size: 10
+#   max_cluster_size: 100000
+#   max_place_radius: 5
+#   dense_frontiers: false
+#   frontier_splitting_threshold: 0.2
+#   point_threshold: 10
+#   recent_block_distance: 25
+#   minimum_relative_z: -1.
+#   maximum_relative_z: 1

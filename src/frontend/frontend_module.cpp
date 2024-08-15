@@ -210,6 +210,7 @@ void FrontendModule::spin() {
 
   ReconstructionOutput::Ptr input;
   while (!should_shutdown) {
+    // LOG(INFO) << "front end input " << input;
     if (input && spin_finished_) {
       // start a spin to process input independent of this thread of
       // execution. spin_finished_ will flip to true once the thread terminates
@@ -220,6 +221,7 @@ void FrontendModule::spin() {
     }
 
     bool has_data = queue_->poll();
+    // LOG(INFO) << "has_data(front end): " << has_data;
     if (GlobalInfo::instance().force_shutdown() || !has_data) {
       // copy over shutdown request
       should_shutdown = should_shutdown_;
@@ -508,6 +510,7 @@ void FrontendModule::updatePlaces(const ReconstructionOutput& input) {
 }
 
 void FrontendModule::updatePlaces2d(const ReconstructionOutput& input) {
+  // LOG(INFO) << "is surface_places true? " << (surface_places_ ? "Yes" : "No") << std::endl;
   if (!surface_places_) {
     return;
   }

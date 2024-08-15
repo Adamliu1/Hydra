@@ -41,6 +41,7 @@ def cli():
 @click.option("-v", "--visualize", default=False, help="start visualizer", is_flag=True)
 @click.option("-g", "--glog-level", default=0, help="minimum glog level")
 @click.option("-f", "--use-full-scene", is_flag=True, help="use-full-scene")
+@click.option("-p", "--publish", default=False, is_flag=True, help="publish to ROS")
 @click.option("-y", "--force", is_flag=True, help="overwrite previous output")
 @click.option("--verbosity", default=0, help="glog verbosity")
 @click.option("--show-images", default=False, help="show semantics", is_flag=True)
@@ -77,6 +78,8 @@ def run(
         return False
 
     configs = hydra.load_configs("habitat", labelspace_name=label_space)
+    # print(configs)
+    # exit()
     if not configs:
         click.secho(
             f"Invalid config: dataset 'habitat' and label space '{label_space}'",

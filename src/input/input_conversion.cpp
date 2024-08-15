@@ -175,25 +175,67 @@ bool convertDepth(InputData& data) {
   }
 
   if (data.depth_image.channels() != 1) {
-    LOG(ERROR) << "depth image must be single-channel";
+    LOG(ERROR) << "Depth image must be single-channel";
     return false;
   }
 
-  if (data.depth_image.type() == CV_32FC1) {
+  int type = data.depth_image.type();
+  // LOG(INFO) << "Input depth image type: " << type;
+
+  if (type == CV_32FC1) {
     return true;  // nothing else to do
   }
 
-  if (data.depth_image.type() != CV_16UC1) {
-    LOG(ERROR) << "only CV_32FC1 or CV_16UC1 formats supported, not "
-               << showTypeInfo(data.depth_image);
+  if (type != CV_16UC1 && type != CV_8UC1) {
+    LOG(ERROR) << "Only CV_32FC1, CV_16UC1, or CV_8UC1 formats supported, not " << showTypeInfo(data.depth_image);
     return false;
   }
 
+  cv::Mat converted;
+  // this one is specific for habitat atm
+  if (type == CV_8UC1) {
+    // Convert from CV_8UC1 to CV_16UC1 or CV_32FC1 as needed
+    // TODO: CHECK THIS, currently for Habitat
+    data.depth_image.convertTo(converted, CV_32FC1, 1.0 * 0.039);
+    data.depth_image = converted;
+    // LOG(INFO) << "Converted CV_8UC1 to CV_16UC1";
+    return true;
+  }
+
+  // For CV_16UC1
   cv::Mat depth_converted;
   data.depth_image.convertTo(depth_converted, CV_32FC1, 1.0e-3);
   data.depth_image = depth_converted;
   return true;
 }
+
+// bool convertDepth(InputData& data) {
+//   if (data.depth_image.empty()) {
+//     return true;
+//   }
+
+//   if (data.depth_image.channels() != 1) {
+//     LOG(ERROR) << "depth image must be single-channel";
+//     return false;
+//   }
+
+//   LOG(INFO) << "input " << data.depth_image.type();
+
+//   if (data.depth_image.type() == CV_32FC1) {
+//     return true;  // nothing else to do
+//   }
+
+//   if (data.depth_image.type() != CV_16UC1) {
+//     LOG(ERROR) << "only CV_32FC1 or CV_16UC1 formats supported, not "
+//                << showTypeInfo(data.depth_image);
+//     return false;
+//   }
+
+//   cv::Mat depth_converted;
+//   data.depth_image.convertTo(depth_converted, CV_32FC1, 1.0e-3);
+//   data.depth_image = depth_converted;
+//   return true;
+// }
 
 bool convertColor(InputData& data) {
   if (data.color_image.empty()) {

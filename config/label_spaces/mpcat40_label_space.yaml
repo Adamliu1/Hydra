@@ -2,6 +2,8 @@
 total_semantic_labels: 42
 dynamic_labels: []
 invalid_labels: []
+# THIS IS FOR PLACES MAPPING (LAYER20)
+surface_places_labels: [2, 16]
 object_labels:
   - 3
   - 5

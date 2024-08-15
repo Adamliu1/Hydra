@@ -68,3 +68,14 @@ room_finder:
   dilation_diff_threshold_m: -1.0
   log_filtrations: false
   log_place_graphs: false
+use_2d_places: true
+places2d_config:
+    allow_places_merge: true
+    merge_max_delta_z: 0.5
+    min_points: 10
+    min_size: 2
+    connection_overlap_threshold: 0
+    connection_max_delta_z: 0.5
+frontier_config:
+    frontier_removal_threshold: 1
+    frontier_removal_check_threshold: 4

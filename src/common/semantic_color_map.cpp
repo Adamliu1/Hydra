@@ -73,7 +73,9 @@ std::optional<uint32_t> SemanticColorMap::getLabelFromColor(const Color& color) 
     LOG(ERROR) << "Caught an unknown color " << color << ".";
     unknown_colors_.insert(color);
   }
-
+  if (unknown_colors_.count(color)) {
+    // LOG(INFO) << "color " << color;
+  }
   return std::nullopt;
 }
 

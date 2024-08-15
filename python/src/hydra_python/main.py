@@ -1,6 +1,7 @@
 """Entry points for hydra."""
 
 import hydra_python.commands.habitat as habitat
+import hydra_python.commands.habitat_online_cmu_adam as habitat_online_cmu_adam
 import hydra_python.commands.mp3d as mp3d
 import hydra_python.commands.run as run
 
@@ -22,5 +23,6 @@ def visualize():
 
 
 cli.add_command(habitat.cli)
+cli.add_command(habitat_online_cmu_adam.cli)
 cli.add_command(mp3d.cli)
 cli.add_command(run.cli)

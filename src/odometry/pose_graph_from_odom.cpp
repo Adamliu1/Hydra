@@ -36,6 +36,7 @@
 
 #include <config_utilities/config.h>
 #include <config_utilities/validation.h>
+#include <glog/logging.h>
 
 #include "hydra/common/global_info.h"
 
@@ -71,6 +72,7 @@ PoseGraph::Ptr makePoseGraph(const StampedPose& curr_pose,
   auto graph = std::make_shared<PoseGraph>();
   graph->stamp_ns = curr_pose.stamp;
 
+  // LOG(INFO) << "prev_pose: " << prev_pose.pose.matrix();
   addNode(*graph, prev_pose, prev_index);
   addNode(*graph, curr_pose, prev_index + 1);
 
